@@ -9,6 +9,7 @@ import org.example.project.mapper.toDto
 import org.example.project.mapper.toEntity
 import org.example.project.mapper.toPageDto
 import org.example.project.model.Student
+import org.example.project.repository.StudentRepository
 import org.example.project.request.CreateStudentRequestDto
 import org.example.project.request.UpdateStudentRequestDto
 import org.example.project.service.Impl.StudentServiceImpl
@@ -16,7 +17,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 
 open class StudentFacadeImpl (
-    private val studentService: StudentServiceImpl
+    private val studentService: StudentServiceImpl,
+    private val studentRepository: StudentRepository
     ) :StudentFacade {
 
     @Transactional
@@ -26,8 +28,9 @@ open class StudentFacadeImpl (
     }
 
     @Transactional
-    override fun update(id:Long,updateStudentRequestDto: UpdateStudentRequestDto){
-
+    override fun update(id:Long,updateStudentRequestDto: UpdateStudentRequestDto):StudentDto{
+        val student: Student = studentRepository.findById(id).orElseThrow { RuntimeException("Student not found with id $id") }
+        return studentService.update(student).toDto()
     }
 
     @Transactional

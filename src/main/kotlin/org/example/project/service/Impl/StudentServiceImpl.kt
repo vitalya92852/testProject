@@ -1,5 +1,6 @@
 package org.example.project.service.Impl
 
+import org.example.project.dto.StudentDto
 import org.example.project.enum.PageType
 import org.example.project.model.Student
 import org.example.project.repository.StudentRepository
@@ -19,8 +20,8 @@ class StudentServiceImpl(private val studentRepository: StudentRepository): Stud
         studentRepository.deleteById(id)
     }
 
-    override fun update(student: Student) {
-        studentRepository.save(student)
+    override fun update(student: Student):Student {
+        return studentRepository.save(student)
     }
 
 

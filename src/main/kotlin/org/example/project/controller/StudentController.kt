@@ -28,12 +28,10 @@ class StudentController(
         return ResponseEntity(studentDto,HttpStatus.CREATED)
     }
 
-//    @PutMapping("/update/{id}")
-//    fun updateStudent(@PathVariable("id") id:Long,@RequestBody updateStudentRequestDto: UpdateStudentRequestDto){
-//        val studentFacade: StudentFacade = StudentFacadeImpl(studentServiceImpl,)
-//
-//
-//    }
+    @PutMapping("/update/{id}")
+    fun updateStudent(@PathVariable("id") id:Long,@RequestBody updateStudentRequestDto: UpdateStudentRequestDto):StudentDto{
+        return studentFacadeImpl.update(id,updateStudentRequestDto)
+    }
 
     @DeleteMapping("/delete/{id}")
     fun deleteStudent(@PathVariable("id") id:Long):ResponseEntity<Unit>{

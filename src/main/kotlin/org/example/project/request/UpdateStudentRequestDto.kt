@@ -1,6 +1,6 @@
 package org.example.project.request
 
-class UpdateStudentRequestDto(
+data class UpdateStudentRequestDto(
     val name:String,
     val lastname:String
 )

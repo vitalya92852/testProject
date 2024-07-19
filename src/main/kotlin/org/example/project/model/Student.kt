@@ -11,9 +11,9 @@ data class Student(
     @Column(name = "id", nullable = false)
     val id:Long?=null,
     @Column(name = "name", nullable = false, length = 100)
-    val name:String,
+    var name:String,
     @Column(name = "lastname", nullable = false)
-    val lastname:String,
+    var lastname:String,
     @Column(name = "birthDate", nullable = false)
     val birthDay:LocalDate?=null,
 

@@ -30,6 +30,8 @@ open class StudentFacadeImpl (
     @Transactional
     override fun update(id:Long,updateStudentRequestDto: UpdateStudentRequestDto):StudentDto{
         val student: Student = studentRepository.findById(id).orElseThrow { RuntimeException("Student not found with id $id") }
+        student.name = updateStudentRequestDto.name
+        student.lastname = updateStudentRequestDto.lastname
         return studentService.update(student).toDto()
     }
 

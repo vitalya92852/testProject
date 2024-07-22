@@ -15,14 +15,8 @@ fun CreateStudentRequestDto.toEntity():Student{
     )
 }
 
-fun UpdateStudentRequestDto.toEntity():Student{
-    return Student(
-        name = this.name,
-        lastname = this.lastname
-    )
-}
-
 fun Student.toDto():StudentDto{
+
     return StudentDto(
         name = this.name,
         lastname = this.lastname,
@@ -31,9 +25,3 @@ fun Student.toDto():StudentDto{
     )
 }
 
-fun<T,R> Page<T>.toPageDto(mapper:(T)->R):PageDto<R>{
-    return PageDto(
-        pageContent = this.content.map(mapper),
-        pageTotalSize = this.totalPages
-    )
-}

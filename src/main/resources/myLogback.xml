@@ -1,0 +1,11 @@
+<configuration>
+
+    <property name="LOGS_PATH" value="./logs"/>
+    <property name="PATTERN" value="%d{dd-MM-yyyy HH:mm:ss} {%thread} %-5level %logger{36} - %msg%n"/>
+
+
+    <root revel="INFO">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+</configuration>

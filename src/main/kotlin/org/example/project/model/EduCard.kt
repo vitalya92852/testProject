@@ -10,10 +10,12 @@ data class EduCard(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     val id:Long?= null,
-    @Column(name = "startEducation", nullable = false)
+    @Column(name = "start_education", nullable = false)
     val startEducation:LocalDate,
-    @Column(name = "endEducation", nullable = false)
+    @Column(name = "end_education", nullable = false)
     val endEducation:LocalDate,
+    @Column(name = "is_deleted", nullable = false)
+    var isDeleted:Boolean = false
 
 
 )

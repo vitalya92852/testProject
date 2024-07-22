@@ -9,5 +9,7 @@ data class EduHistory(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     val id:Long?=null,
+    @Column(name = "is_deleted", nullable = false)
+    var isDeleted:Boolean = false
 
 )

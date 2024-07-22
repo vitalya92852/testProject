@@ -9,6 +9,6 @@ import org.springframework.data.domain.Pageable
 interface StudentService {
     fun create(student:Student):Student
     fun delete(id:Long)
-    fun update(student: Student):Student
+    fun update(id:Long):Student
     fun findAll(pageable:Pageable):Page<Student>
 }

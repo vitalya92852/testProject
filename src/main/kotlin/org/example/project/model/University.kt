@@ -17,8 +17,10 @@ data class University(
     val city:String,
     @Column(name = "address", nullable = false)
     val address:String,
+    @Column(name = "is_deleted", nullable = false)
+    var isDeleted:Boolean = false,
     @ManyToMany(mappedBy = "universities")
-    var students:List<Student>
+    var students:List<Student>? = emptyList()
 
 
 )

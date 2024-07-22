@@ -17,31 +17,32 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
-@Controller
-@RequestMapping("/student")
+@RestController
+@RequestMapping("/api/v1/student")
 class StudentController(
     private val studentFacadeImpl: StudentFacadeImpl,
     ) {
-    @PostMapping("/create")
+    @PostMapping()
     fun createStudent(@RequestBody createStudentRequestDto: CreateStudentRequestDto): ResponseEntity<StudentDto> {
         val studentDto = studentFacadeImpl.save(createStudentRequestDto)
         return ResponseEntity(studentDto,HttpStatus.CREATED)
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     fun updateStudent(@PathVariable("id") id:Long,@RequestBody updateStudentRequestDto: UpdateStudentRequestDto):StudentDto{
         return studentFacadeImpl.update(id,updateStudentRequestDto)
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     fun deleteStudent(@PathVariable("id") id:Long):ResponseEntity<Unit>{
         studentFacadeImpl.delete(id)
         return ResponseEntity(HttpStatus.OK)
     }
 
     @GetMapping("/findAll")
-    fun findAllPages(): ResponseEntity<PageDto<StudentDto>>{
-        val pageContent:PageDto<StudentDto> = studentFacadeImpl.findAll()
+    fun findAllPages(@RequestParam (defaultValue = "1", required = false) pageNumber:Int,
+                     @RequestParam (defaultValue = "6", required = false) pageSize:Int): ResponseEntity<PageDto<StudentDto>>{
+        val pageContent:PageDto<StudentDto> = studentFacadeImpl.findAll(pageNumber, pageSize)
         return ResponseEntity(pageContent,HttpStatus.OK)
     }
 }

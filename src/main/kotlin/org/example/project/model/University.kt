@@ -19,8 +19,9 @@ data class University(
     val address:String,
     @Column(name = "is_deleted", nullable = false)
     var isDeleted:Boolean = false,
-    @ManyToMany(mappedBy = "universities")
-    var students:List<Student>? = emptyList()
+    @OneToMany(mappedBy = "university")
+    val eduCards: List<EduCard> = emptyList()
+
 
 
 )

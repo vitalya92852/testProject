@@ -45,13 +45,13 @@
         </encoder>
     </appender>
 
-    <logger name="kz.sagengaliyev.univerbackend.aspect.UserIPAddressIdentifierAspect" level="INFO">
+    <logger name="org.example.project.aspect.UserIPAddressIdentifierAspect" level="INFO">
         <appender-ref ref="userIPAddressLogAppender"/>
         <appender-ref ref="consoleAppender"/>
     </logger>
 
 
-    <logger name="kz.sagengaliyev.univerbackend" level="DEBUG">
+    <logger name="org.example.project" level="DEBUG">
         <appender-ref ref="applicationLogAppender"/>
         <appender-ref ref="consoleAppender"/>
     </logger>

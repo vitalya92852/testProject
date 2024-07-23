@@ -1,5 +1,6 @@
 package org.example.project.controller
 
+import org.example.project.dto.EduCardDto
 import org.example.project.dto.PageDto
 import org.example.project.dto.StudentDto
 import org.example.project.facade.StudentFacade
@@ -44,5 +45,24 @@ class StudentController(
                      @RequestParam (defaultValue = "6", required = false) pageSize:Int): ResponseEntity<PageDto<StudentDto>>{
         val pageContent:PageDto<StudentDto> = studentFacadeImpl.findAll(pageNumber, pageSize)
         return ResponseEntity(pageContent,HttpStatus.OK)
+    }
+
+    @PutMapping("/startEducation")
+    fun startEducation(@RequestParam("studentId") studentId:Long,
+                       @RequestParam("universityId") universityId:Long):ResponseEntity<EduCardDto>{
+        val eduCardDto:EduCardDto = studentFacadeImpl.createEduCard(studentId,universityId)
+        return ResponseEntity(eduCardDto,HttpStatus.CREATED)
+    }
+
+    @PutMapping("/endEducation")
+    fun endEducation(@RequestParam("studentId") studentId: Long):ResponseEntity<EduCardDto>{
+        val eduCardDto:EduCardDto = studentFacadeImpl.endEducation(studentId)
+        return ResponseEntity(eduCardDto,HttpStatus.OK)
+    }
+    @PutMapping("/changeUniversity")
+    fun endEducation(@RequestParam("studentId",) studentId: Long,
+                     @RequestParam("universityId") universityId: Long):ResponseEntity<EduCardDto>{
+        val eduCardDto:EduCardDto = studentFacadeImpl.changeUniversity(studentId,universityId)
+        return ResponseEntity(eduCardDto,HttpStatus.OK)
     }
 }

@@ -1,6 +1,7 @@
 package org.example.project.model
 
 import jakarta.persistence.*
+import org.example.project.enum.StudentType
 import java.time.LocalDate
 
 @Entity
@@ -18,13 +19,11 @@ data class Student(
     val birthDay:LocalDate?=null,
     @Column(name = "is_deleted", nullable = false)
     var isDeleted:Boolean = false,
+    @Column(name = "type_of_student", nullable = false)
+    @Enumerated(EnumType.STRING)
+    var type:StudentType = StudentType.BEGINNER,
+    @OneToMany(mappedBy = "student")
+    val eduCards: List<EduCard> = emptyList(),
 
-    @ManyToMany
-    @JoinTable(
-        name = "educard",
-        joinColumns = [JoinColumn(name = "student_id")],
-        inverseJoinColumns = [JoinColumn(name = "university_id")]
+
     )
-    var universities: List<University> = mutableListOf(),
-
-)

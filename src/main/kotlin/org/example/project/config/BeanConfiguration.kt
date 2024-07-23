@@ -2,6 +2,7 @@ package org.example.project.config
 
 import org.example.project.facade.impl.StudentFacadeImpl
 import org.example.project.facade.impl.UniversityFacadeImpl
+import org.example.project.repository.EduCardRepository
 import org.example.project.repository.StudentRepository
 import org.example.project.repository.UniversityRepository
 import org.example.project.service.Impl.StudentServiceImpl
@@ -16,9 +17,15 @@ class BeanConfiguration {
 
     @Bean
     fun studentServiceImpl(
-        studentRepository: StudentRepository
+        studentRepository: StudentRepository,
+        universityRepository: UniversityRepository,
+        eduCardRepository: EduCardRepository
     ):StudentServiceImpl{
-        return StudentServiceImpl(studentRepository)
+        return StudentServiceImpl(
+            studentRepository= studentRepository,
+            universityRepository =  universityRepository,
+            eduCardRepository = eduCardRepository
+           )
     }
 
     @Bean

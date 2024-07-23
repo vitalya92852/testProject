@@ -1,6 +1,7 @@
 package org.example.project.facade.impl
 
 import jakarta.transaction.Transactional
+import org.example.project.dto.EduCardDto
 import org.example.project.dto.PageDto
 import org.example.project.dto.StudentDto
 import org.example.project.exseption.EntityByIdNotFoundException
@@ -48,5 +49,25 @@ open class StudentFacadeImpl (
         logger.info("All students found page number:${pageNumber} and page size $pageSize")
         return studentServiceImpl.findAll(pageData).toPageDto { it.toDto() }
     }
+    @Transactional
+    override fun createEduCard(studentId: Long,universityId:Long): EduCardDto {
+        val eduCard = studentServiceImpl.startEducation(studentId,universityId)
+        val eduCardDto = eduCard.toDto()
+        logger.info("Created education card with id ${eduCard.id}")
+        return eduCardDto
+    }
+
+    override fun endEducation(studentId: Long): EduCardDto {
+        val eduCardDto = studentServiceImpl.endEducation(studentId).toDto()
+        logger.info("Student with id ${eduCardDto.studentDto?.id} education changed  ${eduCardDto.startEducation}")
+        return eduCardDto
+    }
+
+    override fun changeUniversity(studentId: Long, universityId: Long):EduCardDto {
+        val eduCardDto = studentServiceImpl.changeUniversity(studentId,universityId).toDto()
+        logger.info("Student with id ${eduCardDto.studentDto?.id} university changed  ${eduCardDto.startEducation}")
+        return eduCardDto
+    }
+
 
 }

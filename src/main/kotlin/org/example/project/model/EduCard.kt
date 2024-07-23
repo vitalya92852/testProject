@@ -11,11 +11,17 @@ data class EduCard(
     @Column(name = "id", nullable = false)
     val id:Long?= null,
     @Column(name = "start_education", nullable = false)
-    val startEducation:LocalDate,
+    var startEducation:LocalDate? = null,
     @Column(name = "end_education", nullable = false)
-    val endEducation:LocalDate,
+    var endEducation:LocalDate? = null,
     @Column(name = "is_deleted", nullable = false)
-    var isDeleted:Boolean = false
+    var isDeleted:Boolean = false,
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    var student: Student?=null,
+    @ManyToOne
+    @JoinColumn(name = "university_id", nullable = false)
+    var university: University?=null,
 
 
 )

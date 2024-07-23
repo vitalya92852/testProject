@@ -1,8 +1,7 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: vitaliy
+  - include:
+      file: db/changelog/changeset/23-07-2024-12-34-create-student-university-edu_card-table.sql
 
 name: db.changelog-master.yaml
 environment: testing
-is-enabled: false
+is-enabled: true

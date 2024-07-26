@@ -21,48 +21,48 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/v1/student")
 class StudentController(
-    private val studentFacadeImpl: StudentFacadeImpl,
+    private val studentFacade: StudentFacade,
     ) {
     @PostMapping()
     fun createStudent(@RequestBody createStudentRequestDto: CreateStudentRequestDto): ResponseEntity<StudentDto> {
-        val studentDto = studentFacadeImpl.save(createStudentRequestDto)
+        val studentDto = studentFacade.save(createStudentRequestDto)
         return ResponseEntity(studentDto,HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
     fun updateStudent(@PathVariable("id") id:Long,@RequestBody updateStudentRequestDto: UpdateStudentRequestDto):StudentDto{
-        return studentFacadeImpl.update(id,updateStudentRequestDto)
+        return studentFacade.update(id,updateStudentRequestDto)
     }
 
     @DeleteMapping("/{id}")
     fun deleteStudent(@PathVariable("id") id:Long):ResponseEntity<Unit>{
-        studentFacadeImpl.delete(id)
+        studentFacade.delete(id)
         return ResponseEntity(HttpStatus.OK)
     }
 
     @GetMapping("/findAll")
     fun findAllPages(@RequestParam (defaultValue = "1", required = false) pageNumber:Int,
                      @RequestParam (defaultValue = "6", required = false) pageSize:Int): ResponseEntity<PageDto<StudentDto>>{
-        val pageContent:PageDto<StudentDto> = studentFacadeImpl.findAll(pageNumber, pageSize)
+        val pageContent:PageDto<StudentDto> = studentFacade.findAll(pageNumber, pageSize)
         return ResponseEntity(pageContent,HttpStatus.OK)
     }
 
     @PutMapping("/startEducation")
     fun startEducation(@RequestParam("studentId") studentId:Long,
                        @RequestParam("universityId") universityId:Long):ResponseEntity<EduCardDto>{
-        val eduCardDto:EduCardDto = studentFacadeImpl.createEduCard(studentId,universityId)
+        val eduCardDto:EduCardDto = studentFacade.createEduCard(studentId,universityId)
         return ResponseEntity(eduCardDto,HttpStatus.CREATED)
     }
 
     @PutMapping("/endEducation")
     fun endEducation(@RequestParam("studentId") studentId: Long):ResponseEntity<EduCardDto>{
-        val eduCardDto:EduCardDto = studentFacadeImpl.endEducation(studentId)
+        val eduCardDto:EduCardDto = studentFacade.endEducation(studentId)
         return ResponseEntity(eduCardDto,HttpStatus.OK)
     }
     @PutMapping("/changeUniversity")
     fun endEducation(@RequestParam("studentId",) studentId: Long,
                      @RequestParam("universityId") universityId: Long):ResponseEntity<EduCardDto>{
-        val eduCardDto:EduCardDto = studentFacadeImpl.changeUniversity(studentId,universityId)
+        val eduCardDto:EduCardDto = studentFacade.changeUniversity(studentId,universityId)
         return ResponseEntity(eduCardDto,HttpStatus.OK)
     }
 }

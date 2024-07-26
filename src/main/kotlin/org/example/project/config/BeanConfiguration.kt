@@ -1,5 +1,6 @@
 package org.example.project.config
 
+import org.example.project.facade.StudentFacade
 import org.example.project.facade.impl.StudentFacadeImpl
 import org.example.project.facade.impl.UniversityFacadeImpl
 import org.example.project.repository.EduCardRepository
@@ -7,6 +8,7 @@ import org.example.project.repository.StudentRepository
 import org.example.project.repository.UniversityRepository
 import org.example.project.service.Impl.StudentServiceImpl
 import org.example.project.service.Impl.UniversityServiceImpl
+import org.example.project.service.StudentService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -16,11 +18,11 @@ class BeanConfiguration {
 
 
     @Bean
-    fun studentServiceImpl(
+    fun studentService(
         studentRepository: StudentRepository,
         universityRepository: UniversityRepository,
         eduCardRepository: EduCardRepository
-    ):StudentServiceImpl{
+    ):StudentService{
         return StudentServiceImpl(
             studentRepository= studentRepository,
             universityRepository =  universityRepository,
@@ -29,23 +31,23 @@ class BeanConfiguration {
     }
 
     @Bean
-    fun studentFacadeImpl(
-        studentServiceImpl:StudentServiceImpl
-    ):StudentFacadeImpl{
+    fun studentFacade(
+        studentService:StudentService
+    ): StudentFacade {
         return StudentFacadeImpl(
-            studentServiceImpl,
+            studentService,
         )
     }
 
     @Bean
-    fun universityServiceImpl(
+    fun universityService(
         universityRepository: UniversityRepository
     ):UniversityServiceImpl{
         return UniversityServiceImpl(universityRepository)
     }
 
     @Bean
-    fun universityFacadeImpl(
+    fun universityFacade(
         universityServiceImpl: UniversityServiceImpl
     ):UniversityFacadeImpl{
         return UniversityFacadeImpl(universityServiceImpl)

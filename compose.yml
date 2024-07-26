@@ -1,0 +1,38 @@
+services:
+  db_pg_15:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data  # Используем том postgres
+    ports:
+      - 5432:5432
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    environment:
+      KEYCLOAK_DB_VENDOR: POSTGRES
+      KEYCLOAK_DB_ADDR: db_pg_15   # Имя сервиса контейнера PostgreSQL внутри Docker Compose
+      KEYCLOAK_DB_DATABASE: postgres   # Название базы данных, которую будет использовать Keycloak
+      KEYCLOAK_DB_USER: postgres
+      KEYCLOAK_DB_PASSWORD: postgres
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command: [ "start-dev" ]
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db_pg_15
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db_pg_15:5432/project
+volumes:
+  postgres:
+

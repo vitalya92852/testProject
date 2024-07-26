@@ -1,10 +1,8 @@
 package org.example.project.service.Impl
 
-import jakarta.transaction.Transactional
 import org.example.project.enum.EduPeriod
 import org.example.project.enum.StudentType
-import org.example.project.exseption.EntityByIdNotFoundException
-import org.example.project.facade.impl.StudentFacadeImpl
+import org.example.project.exception.EntityByIdNotFoundException
 import org.example.project.model.EduCard
 import org.example.project.model.Student
 import org.example.project.model.University
@@ -18,7 +16,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.time.LocalDate
 import java.time.Period
-import kotlin.math.log
 
 open class StudentServiceImpl(
     private val studentRepository: StudentRepository,
@@ -31,11 +28,13 @@ open class StudentServiceImpl(
     }
 
     override fun delete(id:Long) {
-        val student:Student = studentRepository.findById(id).orElseThrow{
+        studentRepository.findById(id).orElseThrow{
             logger.error("Can not find student with id ${id}")
             EntityByIdNotFoundException(id)
+        }.apply {
+            isDeleted = true
         }
-        student.isDeleted = true
+
     }
 
     override fun update(id:Long):Student {
@@ -55,37 +54,40 @@ open class StudentServiceImpl(
         val student:Student = studentRepository.findById(studentId).orElseThrow{
             logger.error("Can not find student with id $studentId")
             EntityByIdNotFoundException(studentId)
+        }.apply {
+            type = StudentType.STUDENT
+            studentRepository.save(this)
         }
-        student.type = StudentType.STUDENT
-        studentRepository.save(student)
 
         val university:University = universityRepository.findById(universityId).orElseThrow{
             logger.error("Can not find university with id $universityId")
             EntityByIdNotFoundException(universityId)
         }
 
-        val eduCard = EduCard()
-        eduCard.startEducation = LocalDate.now()
-        eduCard.startEducation?.let { startEducation ->
-            eduCard.endEducation = startEducation.plus(Period.ofYears(EduPeriod.THREE_YEARS_EDUCATION.years.toInt()))
+        val eduCard = EduCard().apply {
+            startEducation = LocalDate.now()
+            startEducation?.let { startEducation ->
+                endEducation = startEducation.plus(Period.ofYears(EduPeriod.THREE_YEARS_EDUCATION.years.toInt()))
+            }
+            this.student = student
+            this.university = university
         }
-
-        eduCard.student = student
-        eduCard.university = university
-
 
         return eduCardRepository.save(eduCard)
     }
 
     override fun endEducation(studentId:Long):EduCard {
-        val eduCard = eduCardRepository.findEduCardByStudentId(studentId)
-        eduCard.endEducation = LocalDate.now()
-        val student = studentRepository.findById(studentId).orElseThrow{
+        val eduCard = eduCardRepository.findEduCardByStudentId(studentId).apply {
+            endEducation = LocalDate.now()
+        }
+        studentRepository.findById(studentId).orElseThrow{
             logger.error("Can not find student with id $studentId")
             EntityByIdNotFoundException(studentId)
+        }.apply {
+            type = StudentType.END_EDUCATION
+            studentRepository.save(this)
         }
-        student.type = StudentType.END_EDUCATION
-        studentRepository.save(student)
+
         return eduCardRepository.save(eduCard)
     }
 
@@ -94,8 +96,9 @@ open class StudentServiceImpl(
             logger.error("Can not find university with id $studentId")
             EntityByIdNotFoundException(universityId)
         }
-        val eduCard:EduCard = eduCardRepository.findEduCardByStudentId(studentId)
-        eduCard.university = university
+        val eduCard:EduCard = eduCardRepository.findEduCardByStudentId(studentId).apply {
+            this.university = university
+        }
         return eduCardRepository.save(eduCard)
     }
 

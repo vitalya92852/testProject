@@ -1,7 +1,6 @@
 package org.example.project.service.Impl
 
-import org.example.project.exseption.EntityByIdNotFoundException
-import org.example.project.model.Student
+import org.example.project.exception.EntityByIdNotFoundException
 import org.example.project.model.University
 import org.example.project.repository.UniversityRepository
 import org.example.project.service.UniversityService

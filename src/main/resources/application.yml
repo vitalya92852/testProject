@@ -1,11 +1,28 @@
 spring:
+#  docker:
+#    compose:
+#      file: ./compose.yaml
+#      profiles:
+#        active: local
+#      lifecycle-management: none
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/custom
   datasource:
     url: jdbc:postgresql://localhost:5432/project
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: project
+
+server:
+  port: 8081
+
+

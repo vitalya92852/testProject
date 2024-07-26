@@ -15,7 +15,7 @@ data class Student(
     var name:String,
     @Column(name = "lastname", nullable = false)
     var lastname:String,
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_day", nullable = false)
     val birthDay:LocalDate?=null,
     @Column(name = "is_deleted", nullable = false)
     var isDeleted:Boolean = false,

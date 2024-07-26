@@ -1,24 +1,25 @@
 --liquibase formatted sql
 --changeset vitaliy:create-student-university-edu_card-table
 
-create table student(
+create table if not exists student(
         id serial8 not null primary key,
         name varchar not null ,
         lastname varchar not null,
-        isDeleted bool,
-        type_of_student varchar
+        is_deleted bool,
+        type_of_student varchar,
+        birth_day timestamp
 
 );
 
-create table university(
+create table if not exists university(
        id serial8 not null  primary key ,
        country varchar not null ,
        city varchar not null ,
        name varchar not null ,
-       isDeleted bool
+       is_deleted bool
 );
 
-create table edu_card(
+create table if not exists edu_card(
      id serial8 not null primary key ,
      start_education timestamp not null ,
      end_education timestamp not null,

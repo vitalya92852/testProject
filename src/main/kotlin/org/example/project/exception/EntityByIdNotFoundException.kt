@@ -1,4 +1,4 @@
-package org.example.project.exseption
+package org.example.project.exception
 
 import kz.sagengaliyev.univerbackend.exception.AbstractApplicationException
 import org.springframework.http.HttpStatus

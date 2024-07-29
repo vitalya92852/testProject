@@ -21,7 +21,7 @@ class WebSecurityConfig {
         http
             .authorizeHttpRequests{
                 it.requestMatchers("/api/v1/student/findAll").hasRole("STUDENT")
-                it.anyRequest().authenticated()
+                it.anyRequest().permitAll()
 
 
             }

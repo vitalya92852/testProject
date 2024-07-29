@@ -28,6 +28,7 @@ dependencies {
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.2.4")
 //    implementation("org.springframework.boot:spring-boot-docker-compose")
+    implementation("io.springfox:springfox-swagger2:3.0.0")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

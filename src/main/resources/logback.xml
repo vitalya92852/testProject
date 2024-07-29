@@ -36,7 +36,7 @@
         </encoder>
     </appender>
 
-    <appender name="userIPAddressLogAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="userIPAddress" class="ch.qos.logback.core.FileAppender">
         <file>${LOGS_PATH}/user-ip-address.log</file>
         <encoder>
             <pattern>
@@ -45,8 +45,8 @@
         </encoder>
     </appender>
 
-    <logger name="org.example.project.aspect.UserIPAddressIdentifierAspect" level="INFO">
-        <appender-ref ref="userIPAddressLogAppender"/>
+    <logger name="org.example.project.ipLogger.IpAddress" level="INFO">
+        <appender-ref ref="userIPAddress"/>
         <appender-ref ref="consoleAppender"/>
     </logger>
 

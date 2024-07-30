@@ -12,6 +12,7 @@ interface StudentService {
     fun delete(id:Long)
     fun update(id:Long): Student
     fun findAll(pageable:Pageable):Page<Student>
+    fun get(id:Long):Student
     fun startEducation(studentId:Long,universityId:Long): EduCard
     fun endEducation(studentId:Long): EduCard
     fun changeUniversity(studentId:Long,universityId:Long): EduCard

@@ -8,8 +8,11 @@ import org.example.project.business.dto.StudentDto
 import org.example.project.business.facade.StudentFacade
 import org.example.project.business.filter.dto.FilterDto
 import org.example.project.business.filter.filterFacade.FilterFacade
+import org.example.project.business.mapper.toDto
 import org.example.project.business.request.CreateStudentRequestDto
 import org.example.project.business.request.UpdateStudentRequestDto
+import org.example.project.business.service.StudentService
+import org.example.project.dal.repository.StudentRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -70,6 +73,12 @@ class StudentController(
                      @RequestParam("universityId") universityId: Long):ResponseEntity<EduCardDto>{
         val eduCardDto: EduCardDto = studentFacade.changeUniversity(studentId,universityId)
         return ResponseEntity(eduCardDto,HttpStatus.OK)
+    }
+
+    @GetMapping("/{id}")
+    fun getStudent(@PathVariable("id") id:Long):ResponseEntity<StudentDto>{
+        val studentDto = studentFacade.get(id)
+        return ResponseEntity(studentDto,HttpStatus.OK)
     }
 
     @GetMapping("/filter")

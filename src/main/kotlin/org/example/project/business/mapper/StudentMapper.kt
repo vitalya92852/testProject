@@ -21,7 +21,8 @@ fun Student.toDto(): StudentDto {
         name = this.name,
         lastname = this.lastname,
         birthDay = this.birthDay,
-        id = this.id
+        id = this.id,
+        city = this.city
     )
 }
 

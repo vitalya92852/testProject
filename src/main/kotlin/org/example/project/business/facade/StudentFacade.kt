@@ -15,6 +15,7 @@ interface StudentFacade {
     fun update(id:Long,updateStudentRequestDto: UpdateStudentRequestDto): StudentDto
     fun delete(id:Long)
     fun findAll(pageNumber:Int,pageSize:Int): PageDto<StudentDto>
+    fun get(id:Long):StudentDto
     fun createEduCard(studentId:Long,universityId:Long): EduCardDto
     fun endEducation(studentId:Long): EduCardDto
     fun changeUniversity(studentId: Long,universityId: Long): EduCardDto

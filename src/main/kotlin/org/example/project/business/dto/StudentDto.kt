@@ -1,5 +1,6 @@
 package org.example.project.business.dto
 
+import org.example.project.dal.POJO.CityPOJO
 import java.time.LocalDate
 
 data class StudentDto(
@@ -7,4 +8,5 @@ data class StudentDto(
     val name:String,
     val lastname:String,
     val birthDay:LocalDate?,
+    val city:CityPOJO
 )

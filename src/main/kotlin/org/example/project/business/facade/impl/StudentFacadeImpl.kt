@@ -47,6 +47,13 @@ open class StudentFacadeImpl (
         logger.info("All students found page number:${pageNumber} and page size $pageSize")
         return studentService.findAll(pageData).toPageDto { it.toDto() }
     }
+
+    override fun get(id:Long): StudentDto {
+        val student = studentService.get(id)
+        val studentDto = student.toDto()
+        return studentDto
+    }
+
     @Transactional
     override fun createEduCard(studentId: Long,universityId:Long): EduCardDto {
         val eduCard = studentService.startEducation(studentId,universityId)

@@ -3,6 +3,7 @@ package org.example.project.business.service.Impl
 import org.example.project.dal.enum.EduPeriod
 import org.example.project.dal.enum.StudentType
 import org.example.project.business.exception.EntityByIdNotFoundException
+import org.example.project.business.mapper.toDto
 import org.example.project.dal.model.EduCard
 import org.example.project.dal.model.Student
 import org.example.project.dal.model.University
@@ -53,6 +54,10 @@ open class StudentServiceImpl(
 
     override fun findAll(pageable:Pageable): Page<Student> {
         return studentRepository.findAll(pageable)
+    }
+
+    override fun get(id:Long): Student {
+        return studentRepository.findById(id).orElseThrow()
     }
 
     override fun startEducation(studentId: Long,universityId:Long): EduCard {

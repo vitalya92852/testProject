@@ -23,6 +23,6 @@ class IpAddress(
     @Before("pointCutIpAddress()")
     fun getIpAddress(){
         val request = (RequestContextHolder.getRequestAttributes() as ServletRequestAttributes?)!!.request
-        logger.info(request.remoteAddr)
+        logger.info("${request.remoteAddr} from role controller method GET and HelloRole()")
     }
 }

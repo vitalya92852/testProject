@@ -1,4 +1,4 @@
-package org.example.project.ipLogger
+package org.example.project.aspect
 
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
@@ -12,8 +12,8 @@ import org.springframework.web.context.request.ServletRequestAttributes
 
 @Aspect
 @Component
-class IpAddress(
-    private val logger:Logger = LoggerFactory.getLogger(IpAddress::class.java)
+class IpAddressIdentifyAspect(
+    private val logger:Logger = LoggerFactory.getLogger(IpAddressIdentifyAspect::class.java)
 ) {
 
 

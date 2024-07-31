@@ -5,8 +5,8 @@ import java.time.LocalDate
 
 data class StudentDto(
     val id:Long?,
-    val name:String,
-    val lastname:String,
+    val name:String?,
+    val lastname:String?,
     val birthDay:LocalDate?,
-    val city:CityPOJO
+//    val city:CityPOJO?
 )

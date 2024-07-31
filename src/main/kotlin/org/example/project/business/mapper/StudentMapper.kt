@@ -22,7 +22,7 @@ fun Student.toDto(): StudentDto {
         lastname = this.lastname,
         birthDay = this.birthDay,
         id = this.id,
-        city = this.city
+//        city = this.city
     )
 }
 

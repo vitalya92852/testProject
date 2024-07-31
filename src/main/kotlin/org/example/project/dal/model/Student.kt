@@ -25,9 +25,9 @@ data class Student(
     @Column(name = "type_of_student", nullable = false)
     @Enumerated(EnumType.STRING)
     var type: StudentType = StudentType.BEGINNER,
-    @Column(name = "city")
-    @JdbcTypeCode(SqlTypes.JSON)
-    var city:CityPOJO = CityPOJO(),
+//    @Column(name = "city")
+//    @JdbcTypeCode(SqlTypes.JSON)
+//    var city:CityPOJO = CityPOJO(),
     @OneToMany(mappedBy = "student")
     val eduCards: List<EduCard> = emptyList(),
 

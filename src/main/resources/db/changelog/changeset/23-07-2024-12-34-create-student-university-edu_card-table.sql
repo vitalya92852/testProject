@@ -29,3 +29,5 @@ create table if not exists edu_card(
      foreign key (university_id) references university(id)
 );
 
+
+

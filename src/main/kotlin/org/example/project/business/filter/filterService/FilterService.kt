@@ -11,9 +11,6 @@ class FilterService(
 ) {
     fun filteredStudents(filterDto: FilterDto):List<Student> {
         val specification: Specification<Student> = StudentSpecification.getSpecification(filterDto)
-        for(i in 1..100){
-            println(studentRepository.findAll(specification).size)
-        }
         return studentRepository.findAll(specification)
     }
 }

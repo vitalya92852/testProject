@@ -45,7 +45,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.example.project.ipLogger.IpAddress" level="INFO">
+    <logger name="org.example.project.aspect.IpAddressIdentifyAspect" level="INFO">
         <appender-ref ref="userIPAddress"/>
         <appender-ref ref="consoleAppender"/>
     </logger>

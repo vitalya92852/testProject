@@ -10,9 +10,11 @@ import org.example.project.business.filter.dto.FilterDto
 import org.example.project.business.filter.filterFacade.FilterFacade
 import org.example.project.business.mapper.toDto
 import org.example.project.business.request.CreateStudentRequestDto
+import org.example.project.business.request.FetchFilterStudentRequestDto
 import org.example.project.business.request.UpdateStudentRequestDto
 import org.example.project.business.service.StudentService
 import org.example.project.dal.repository.StudentRepository
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -83,15 +85,12 @@ class StudentController(
 
     @GetMapping("/filter")
     @ApiOperation("Filter students by params")
-    fun studentFilter(@RequestParam ("name") name:String?,
-                      @RequestParam ("lastname") lastname:String?,
-                      @RequestParam ("birthDay") birthDay:String?,
-                      @RequestParam ("typeOfStudent") typeOfStudent:String?):ResponseEntity<List<StudentDto>>{
+    fun studentFilter(@ParameterObject filterParams:FetchFilterStudentRequestDto):ResponseEntity<List<StudentDto>>{
         val filterDto = FilterDto().apply {
-            this.name = name
-            this.lastname = lastname
-            this.birthDay = birthDay?.toLocalDate()
-            this. typeOfStudent = typeOfStudent
+            this.name = filterParams.name
+            this.lastname = filterParams.lastname
+            this.birthDay = filterParams.birthDay.toLocalDate()
+            this. typeOfStudent = filterParams.typeOfStudent
         }
         val listStudentDto = filterFacade.getFilteredStudents(filterDto)
         return  ResponseEntity(listStudentDto,HttpStatus.OK)

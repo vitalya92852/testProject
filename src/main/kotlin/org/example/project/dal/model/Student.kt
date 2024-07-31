@@ -1,7 +1,7 @@
 package org.example.project.dal.model
 
 import jakarta.persistence.*
-import org.example.project.dal.POJO.CityPOJO
+import org.example.project.dal.POJO.AddressPOJO
 import org.example.project.dal.enum.StudentType
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
@@ -25,9 +25,10 @@ data class Student(
     @Column(name = "type_of_student", nullable = false)
     @Enumerated(EnumType.STRING)
     var type: StudentType = StudentType.BEGINNER,
-//    @Column(name = "city")
-//    @JdbcTypeCode(SqlTypes.JSON)
-//    var city:CityPOJO = CityPOJO(),
+    @Column(name = "city")
+    @Embedded
+    @JdbcTypeCode(SqlTypes.JSON)
+    var address:AddressPOJO = AddressPOJO(),
     @OneToMany(mappedBy = "student")
     val eduCards: List<EduCard> = emptyList(),
 

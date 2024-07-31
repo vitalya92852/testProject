@@ -5,7 +5,7 @@ import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
 import org.example.project.business.filter.dto.FilterDto
-import org.example.project.dal.POJO.CityPOJO
+import org.example.project.dal.POJO.AddressPOJO
 import org.example.project.dal.model.Student
 import org.springframework.data.jpa.domain.Specification
 import java.time.LocalDate
@@ -27,15 +27,14 @@ class StudentSpecification{
                 filterDto.birthDay?.let {
                     predicates.add(criteriaBuilder.equal(root.get<LocalDate>("birth_day"), it))
                 }
-//                filterDto.city?.let {
-//                    predicates.add(criteriaBuilder.equal(root.get<LocalDate>("city"), it))
-//                }
-//                filterDto.city?.let {
-//                    predicates.add(criteriaBuilder.like(root.get("city"),it))
-//                }
-//                filterDto.country?.let {
-//                    predicates.add(criteriaBuilder.like(root.get("country"),it))
-//                }
+                filterDto.city?.let {
+                    predicates.add(criteriaBuilder.equal(root.get<AddressPOJO>("address").get<String>("city"),it))
+                }
+                filterDto.country?.let {
+                    predicates.add(criteriaBuilder.equal(root.get<AddressPOJO>("address").get<String>("country"),it))
+                }
+
+
 
                  criteriaBuilder.and(*predicates.toTypedArray())
             }

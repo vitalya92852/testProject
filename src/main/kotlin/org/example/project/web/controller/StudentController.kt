@@ -90,8 +90,13 @@ class StudentController(
             this.name = filterParams.name
             this.lastname = filterParams.lastname
             this.birthDay = filterParams.birthDay.toLocalDate()
-            this. typeOfStudent = filterParams.typeOfStudent
+            this.typeOfStudent = filterParams.typeOfStudent
+            this.city = filterParams.city
+            this.country = filterParams.country
         }
+        for(i in 0..100)
+            filterParams.city
+        println(filterDto.city)
         val listStudentDto = filterFacade.getFilteredStudents(filterDto)
         return  ResponseEntity(listStudentDto,HttpStatus.OK)
     }
